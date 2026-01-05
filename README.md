@@ -11,6 +11,20 @@ A RESTful API for expense tracking with API key authentication, built with Larav
 - **Testing**: Pest PHP
 - **UI**: Laravel Breeze (Blade templates)
 
+### Application Screen Shots
+
+#### **Landing Page**
+![Landing Page](public/screenshots/landing.png)
+
+#### **Login Page**
+![Login Page](public/screenshots/login.png)
+
+#### **Register Page**
+![Register Page](public/screenshots/reg.png)
+
+#### **Dashboard**
+![Dashboard](public/screenshots/bck_dashboard.png)
+
 ### Database Schema
 
 #### Users Table
@@ -71,20 +85,6 @@ A RESTful API for expense tracking with API key authentication, built with Larav
 - Standard HTTP methods (GET, POST, PUT, DELETE)
 - JSON request/response format
 - Consistent endpoint structure
-
-## Application Screen Shots
-
-#### **Landing Page**
-![Landing Page](public/screenshots/landing.png)
-
-#### **Login Page**
-![Login Page](public/screenshots/login.png)
-
-#### **Register Page**
-![Register Page](public/screenshots/reg.png)
-
-#### **Dashboard**
-![Dashboard](public/screenshots/bck_dashboard.png)
 
 
 ## 🔑 API Key Usage
