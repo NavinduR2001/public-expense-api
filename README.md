@@ -70,6 +70,21 @@ A RESTful API for expense tracking with API key authentication, built with Larav
 - JSON request/response format
 - Consistent endpoint structure
 
+## Application Screen Shots
+
+#### **Landing Page**
+![Landing Page](public/screenshots/landing.png)
+
+#### **Login Page**
+![Login Page](public/screenshots/login.png)
+
+#### **Register Page**
+![Register Page](public/screenshots/reg.png)
+
+#### **Dashboard**
+![Dashboard](public/screenshots/bck_dashboard.png)
+
+
 ## 🔑 API Key Usage
 
 ### How API Keys Work
