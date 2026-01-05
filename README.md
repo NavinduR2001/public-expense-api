@@ -36,7 +36,7 @@ A RESTful API for expense tracking with API key authentication, built with Larav
 #### Categories Table
 ```sql
 - id (primary key)
-- user_id 
+- user_id (foreign key → users.id)
 - name
 - description (nullable)
 - created_at
@@ -46,7 +46,7 @@ A RESTful API for expense tracking with API key authentication, built with Larav
 #### Expenses Table
 ```sql
 - id (primary key)
-- user_id 
+- user_id (foreign key → users.id)
 - category_id (foreign key → categories.id)
 - amount (decimal)
 - expense_date (date)
