@@ -36,6 +36,7 @@ A RESTful API for expense tracking with API key authentication, built with Larav
 #### Categories Table
 ```sql
 - id (primary key)
+- user_id 
 - name
 - description (nullable)
 - created_at
@@ -45,6 +46,7 @@ A RESTful API for expense tracking with API key authentication, built with Larav
 #### Expenses Table
 ```sql
 - id (primary key)
+- user_id 
 - category_id (foreign key → categories.id)
 - amount (decimal)
 - expense_date (date)
@@ -242,54 +244,9 @@ All API requests require the `X-API-KEY` header.
 GET /api/categories
 ```
 
-**Request**:
-```bash
-curl -X GET http://127.0.0.1:8000/api/categories \
-  -H "X-API-KEY: pk_live_abc123xyz789" \
-  -H "Accept: application/json"
-```
-
-**Response** (200 OK):
-```json
-[
-  {
-    "id": 1,
-    "name": "Food & Dining",
-    "description": "Restaurants, groceries, etc.",
-    "created_at": "2026-01-05T10:00:00.000000Z",
-    "updated_at": "2026-01-05T10:00:00.000000Z"
-  },
-  {
-    "id": 2,
-    "name": "Transportation",
-    "description": "Gas, public transit, etc.",
-    "created_at": "2026-01-05T10:00:00.000000Z",
-    "updated_at": "2026-01-05T10:00:00.000000Z"
-  }
-]
-```
-
 #### 2. Get Single Category
 ```http
 GET /api/categories/{id}
-```
-
-**Request**:
-```bash
-curl -X GET http://127.0.0.1:8000/api/categories/1 \
-  -H "X-API-KEY: pk_live_abc123xyz789" \
-  -H "Accept: application/json"
-```
-
-**Response** (200 OK):
-```json
-{
-  "id": 1,
-  "name": "Food & Dining",
-  "description": "Restaurants, groceries, etc.",
-  "created_at": "2026-01-05T10:00:00.000000Z",
-  "updated_at": "2026-01-05T10:00:00.000000Z"
-}
 ```
 
 #### 3. Create Category
@@ -297,74 +254,14 @@ curl -X GET http://127.0.0.1:8000/api/categories/1 \
 POST /api/categories
 ```
 
-**Request**:
-```bash
-curl -X POST http://127.0.0.1:8000/api/categories \
-  -H "X-API-KEY: pk_live_abc123xyz789" \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json" \
-  -d '{
-    "name": "Entertainment",
-    "description": "Movies, concerts, games"
-  }'
-```
-
-**Response** (201 Created):
-```json
-{
-  "id": 3,
-  "name": "Entertainment",
-  "description": "Movies, concerts, games",
-  "created_at": "2026-01-05T12:30:00.000000Z",
-  "updated_at": "2026-01-05T12:30:00.000000Z"
-}
-```
-
 #### 4. Update Category
 ```http
 PUT /api/categories/{id}
 ```
 
-**Request**:
-```bash
-curl -X PUT http://127.0.0.1:8000/api/categories/3 \
-  -H "X-API-KEY: pk_live_abc123xyz789" \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json" \
-  -d '{
-    "name": "Entertainment & Leisure",
-    "description": "Updated description"
-  }'
-```
-
-**Response** (200 OK):
-```json
-{
-  "id": 3,
-  "name": "Entertainment & Leisure",
-  "description": "Updated description",
-  "created_at": "2026-01-05T12:30:00.000000Z",
-  "updated_at": "2026-01-05T13:00:00.000000Z"
-}
-```
-
 #### 5. Delete Category
 ```http
 DELETE /api/categories/{id}
-```
-
-**Request**:
-```bash
-curl -X DELETE http://127.0.0.1:8000/api/categories/3 \
-  -H "X-API-KEY: pk_live_abc123xyz789" \
-  -H "Accept: application/json"
-```
-
-**Response** (200 OK):
-```json
-{
-  "message": "Category deleted successfully"
-}
 ```
 
 ---
@@ -376,68 +273,9 @@ curl -X DELETE http://127.0.0.1:8000/api/categories/3 \
 GET /api/expenses
 ```
 
-**Request**:
-```bash
-curl -X GET http://127.0.0.1:8000/api/expenses \
-  -H "X-API-KEY: pk_live_abc123xyz789" \
-  -H "Accept: application/json"
-```
-
-**Response** (200 OK):
-```json
-[
-  {
-    "id": 1,
-    "category_id": 1,
-    "amount": "45.99",
-    "expense_date": "2026-01-04",
-    "description": "Lunch at restaurant",
-    "created_at": "2026-01-05T10:00:00.000000Z",
-    "updated_at": "2026-01-05T10:00:00.000000Z",
-    "category": {
-      "id": 1,
-      "name": "Food & Dining",
-      "description": "Restaurants, groceries, etc."
-    }
-  }
-]
-```
-
 #### 2. Create Expense
 ```http
 POST /api/expenses
-```
-
-**Request**:
-```bash
-curl -X POST http://127.0.0.1:8000/api/expenses \
-  -H "X-API-KEY: pk_live_abc123xyz789" \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json" \
-  -d '{
-    "category_id": 1,
-    "amount": 45.99,
-    "expense_date": "2026-01-05",
-    "description": "Grocery shopping"
-  }'
-```
-
-**Response** (201 Created):
-```json
-{
-  "id": 2,
-  "category_id": 1,
-  "amount": "45.99",
-  "expense_date": "2026-01-05",
-  "description": "Grocery shopping",
-  "created_at": "2026-01-05T14:00:00.000000Z",
-  "updated_at": "2026-01-05T14:00:00.000000Z",
-  "category": {
-    "id": 1,
-    "name": "Food & Dining",
-    "description": "Restaurants, groceries, etc."
-  }
-}
 ```
 
 #### 3. Update Expense
@@ -445,87 +283,15 @@ curl -X POST http://127.0.0.1:8000/api/expenses \
 PUT /api/expenses/{id}
 ```
 
-**Request**:
-```bash
-curl -X PUT http://127.0.0.1:8000/api/expenses/2 \
-  -H "X-API-KEY: pk_live_abc123xyz789" \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json" \
-  -d '{
-    "category_id": 1,
-    "amount": 52.00,
-    "expense_date": "2026-01-05",
-    "description": "Grocery shopping - updated"
-  }'
-```
-
-**Response** (200 OK):
-```json
-{
-  "id": 2,
-  "category_id": 1,
-  "amount": "52.00",
-  "expense_date": "2026-01-05",
-  "description": "Grocery shopping - updated",
-  "created_at": "2026-01-05T14:00:00.000000Z",
-  "updated_at": "2026-01-05T15:00:00.000000Z",
-  "category": {
-    "id": 1,
-    "name": "Food & Dining",
-    "description": "Restaurants, groceries, etc."
-  }
-}
-```
-
 #### 4. Delete Expense
 ```http
 DELETE /api/expenses/{id}
-```
-
-**Request**:
-```bash
-curl -X DELETE http://127.0.0.1:8000/api/expenses/2 \
-  -H "X-API-KEY: pk_live_abc123xyz789" \
-  -H "Accept: application/json"
-```
-
-**Response** (200 OK):
-```json
-{
-  "message": "Expense deleted successfully"
-}
 ```
 
 #### 5. Get Expenses by Date Range
 ```http
 GET /api/expenses-range?start_date={start}&end_date={end}
 ```
-
-**Request**:
-```bash
-curl -X GET "http://127.0.0.1:8000/api/expenses-range?start_date=2026-01-01&end_date=2026-01-31" \
-  -H "X-API-KEY: pk_live_abc123xyz789" \
-  -H "Accept: application/json"
-```
-
-**Response** (200 OK):
-```json
-[
-  {
-    "id": 1,
-    "category_id": 1,
-    "amount": "45.99",
-    "expense_date": "2026-01-04",
-    "description": "Lunch at restaurant",
-    "category": {
-      "id": 1,
-      "name": "Food & Dining"
-    }
-  }
-]
-```
-
----
 
 ### Error Responses
 
@@ -622,48 +388,6 @@ php artisan queue:work
 php artisan ide-helper:generate
 ```
 
-### Database Seeding
-
-Create sample data:
-
-```bash
-php artisan tinker
-```
-
-```php
-// Create categories
-$categories = [
-    ['name' => 'Food & Dining', 'description' => 'Restaurants, groceries'],
-    ['name' => 'Transportation', 'description' => 'Gas, transit'],
-    ['name' => 'Shopping', 'description' => 'Clothing, electronics'],
-];
-
-foreach ($categories as $cat) {
-    App\Models\Category::create($cat);
-}
-
-// Create expenses
-App\Models\Expense::create([
-    'category_id' => 1,
-    'amount' => 45.99,
-    'expense_date' => '2026-01-05',
-    'description' => 'Lunch'
-]);
-
-exit
-```
-
-## 📊 API Rate Limiting
-
-Currently no rate limiting is implemented. For production:
-
-```php
-// In app/Http/Kernel.php
-'api' => [
-    'throttle:60,1', // 60 requests per minute
-    'api.key',
-],
-```
 
 ## 🔒 Security Best Practices
 
@@ -678,14 +402,6 @@ Currently no rate limiting is implemented. For production:
 ## 📄 License
 
 MIT License
-
-## 🤝 Contributing
-
-1. Fork repository
-2. Create feature branch
-3. Write tests for new features
-4. Ensure all tests pass
-5. Submit pull request
 
 ## 📞 Support
 
